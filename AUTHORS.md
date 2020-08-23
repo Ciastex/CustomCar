@@ -8,4 +8,4 @@ UnityEngine.dll is a part of the Unity Engine. It falls under the [![Unity Softw
 Assembly-CSharp.dll is a part of the Distance game. It falls under the [![Refract Studios' EULA](http://store.steampowered.com/eula/233610_eula_0)](http://store.steampowered.com/eula/233610_eula_0)
  terms and conditions.
 
-The Spectrum Framework was created by Tomasz Cichoń (Ciastex).
+The Centrifuge Framework was created by Tomasz Cichoń (Ciastex).
