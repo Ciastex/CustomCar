@@ -5,12 +5,12 @@ namespace CustomCar
 {
     public static class ErrorList
     {
-        static List<string> errors = new List<string>();
+        private static readonly List<string> errors = new List<string>();
 
         public static void add(string error)
         {
             errors.Add(error);
-            Console.Out.WriteLine("Custom car - Error: " +  error);
+            Console.Out.WriteLine("Custom car - Error: " + error);
         }
 
         public static List<string> get()
@@ -32,9 +32,9 @@ namespace CustomCar
         {
             if (errors.Count == 0)
                 return;
-            
-            string error = "Can't load the cars correctly:" + errors.Count + " error(s)\n";
-            for(int i = 0; i < errors.Count; i++)
+
+            var error = "Can't load the cars correctly:" + errors.Count + " error(s)\n";
+            for (var i = 0; i < errors.Count; i++)
                 error += errors[i] + "\n";
 
             G.Sys.MenuPanelManager_.ShowError(error, "Custom cars error");
