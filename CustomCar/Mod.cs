@@ -3,27 +3,29 @@ using System.Collections.Generic;
 using Events.MainMenu;
 using Reactor.API.Attributes;
 using Reactor.API.Interfaces.Systems;
+using Reactor.API.Logging;
 using Reactor.API.Runtime.Patching;
 using Reactor.API.Storage;
 
 namespace CustomCar
 {
     [ModEntryPoint(ModID)]
-    public class Entry
+    public class Mod
     {
         public const string ModID = "com.github.larnin.CustomCar";
 
-        private List<Assets> assets = new List<Assets>();
+        private List<Assets> _assets = new List<Assets>();
+        private Log _log = LogManager.GetForCurrentAssembly();
 
         public void Initialize(IManager manager)
-        {
+        {           
             try
             {
                 RuntimePatcher.AutoPatch();
             }
             catch (Exception e)
             {
-                Console.Out.WriteLine(e.ToString());
+                _log.Exception(e);
             }
 
             Initialized.Subscribe(data =>
@@ -37,8 +39,8 @@ namespace CustomCar
                 }
                 catch (Exception e)
                 {
-                    ErrorList.add("An error occured while trying to load cars assets");
-                    Console.Out.WriteLine(e.ToString());
+                    ErrorList.add("An error occured while trying to load cars assets.");
+                    _log.Exception(e);
                 }
                 
                 if (ErrorList.haveErrors())
@@ -48,8 +50,6 @@ namespace CustomCar
 
         public void Load()
         {
-
-
             ModdedCarsColors.LoadAll();
         }
     }

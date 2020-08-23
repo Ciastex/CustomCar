@@ -12,11 +12,11 @@ namespace CustomCar
 {
     public class CarBuilder
     {
-        private CarInfos m_infos;
+        private CarInfos _infos;
 
         public void createCars(CarInfos infos)
         {
-            m_infos = infos;
+            _infos = infos;
             var cars = loadAssetsBundle();
 
             var carsInfos = new List<CreateCarReturnInfos>();
@@ -114,7 +114,7 @@ namespace CustomCar
         {
             var infos = new CreateCarReturnInfos();
 
-            var obj = Object.Instantiate(m_infos.baseCar);
+            var obj = Object.Instantiate(_infos.baseCar);
             obj.name = car.name;
             Object.DontDestroyOnLoad(obj);
             obj.SetActive(false);
@@ -197,7 +197,7 @@ namespace CustomCar
             for (var i = 0; i < r.materials.Length; i++)
             {
                 MaterialInfos matInfo = null;
-                if (!m_infos.materials.TryGetValue(matNames[i], out matInfo))
+                if (!_infos.materials.TryGetValue(matNames[i], out matInfo))
                 {
                     ErrorList.add("Can't find the material " + matNames[i] + " on " + r.gameObject.FullName());
                     continue;
@@ -490,32 +490,32 @@ namespace CustomCar
             {
                 var child = obj.GetChild(i).gameObject;
                 var name = child.name.ToLower();
-                if (m_infos.boostJet != null && name.Contains("boostjet"))
+                if (_infos.boostJet != null && name.Contains("boostjet"))
                 {
-                    var jet = Object.Instantiate(m_infos.boostJet, child.transform);
+                    var jet = Object.Instantiate(_infos.boostJet, child.transform);
                     jet.transform.localPosition = Vector3.zero;
                     jet.transform.localRotation = Quaternion.identity;
                     boostJets.Add(jet.GetComponentInChildren<JetFlame>());
                 }
-                else if (m_infos.wingJet != null && name.Contains("wingjet"))
+                else if (_infos.wingJet != null && name.Contains("wingjet"))
                 {
-                    var jet = Object.Instantiate(m_infos.wingJet, child.transform);
+                    var jet = Object.Instantiate(_infos.wingJet, child.transform);
                     jet.transform.localPosition = Vector3.zero;
                     jet.transform.localRotation = Quaternion.identity;
                     wingJets.Add(jet.GetComponentInChildren<JetFlame>());
                     wingJets.Last().rotationAxis_ = JetDirection(child.transform);
                 }
-                else if (m_infos.rotationJet != null && name.Contains("rotationjet"))
+                else if (_infos.rotationJet != null && name.Contains("rotationjet"))
                 {
-                    var jet = Object.Instantiate(m_infos.rotationJet, child.transform);
+                    var jet = Object.Instantiate(_infos.rotationJet, child.transform);
                     jet.transform.localPosition = Vector3.zero;
                     jet.transform.localRotation = Quaternion.identity;
                     rotationJets.Add(jet.GetComponentInChildren<JetFlame>());
                     rotationJets.Last().rotationAxis_ = JetDirection(child.transform);
                 }
-                else if (m_infos.wingTrail != null && name.Contains("wingtrail"))
+                else if (_infos.wingTrail != null && name.Contains("wingtrail"))
                 {
-                    var trail = Object.Instantiate(m_infos.wingTrail, child.transform);
+                    var trail = Object.Instantiate(_infos.wingTrail, child.transform);
                     trail.transform.localPosition = Vector3.zero;
                     trail.transform.localRotation = Quaternion.identity;
                 }
@@ -646,7 +646,7 @@ namespace CustomCar
                     }
             }
 
-            return m_infos.defaultColors;
+            return _infos.defaultColors;
         }
 
         private class CreateCarReturnInfos
